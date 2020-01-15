@@ -13,7 +13,6 @@ export class ChangeExecutorComponent implements OnInit {
   @Input() task: object;
 
   users: Array<object> = [];
-  usersGroups: Array<object> = [];
 
   constructor(
     private apiService: ApiService,
@@ -21,7 +20,6 @@ export class ChangeExecutorComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
-    this.getUsersGroups();
   }
 
   getUsers() {
@@ -32,28 +30,16 @@ export class ChangeExecutorComponent implements OnInit {
     });
   }
 
-  getUsersGroups() {
-    this.apiService.getUsersGroupsList().subscribe(response => {
-      this.usersGroups = response;
-    }, () => {
-      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
-    });
-  }
-
   closeModal() {
     this.emitterService.updateModal.next(new Modal(false));
   }
 
   setExecutor(user) {
-    const userGroup = this.usersGroups.filter(g => g['id'] === user.id)[0];
-
     this.apiService.updateTask({
       id: this.task['id'],
       statusId: this.task['statusId'],
       executorId: user.id,
       executorName: user.name,
-      executorGroupId: userGroup['id'],
-      executorGroupName: userGroup['name'],
     }).subscribe(() => {
       this.closeModal();
       this.emitterService.updateTask.next();

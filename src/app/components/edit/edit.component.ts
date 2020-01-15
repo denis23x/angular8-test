@@ -15,8 +15,6 @@ export class EditComponent implements OnInit {
 
   task: Task;
   commentText: string;
-  comments: Array<object> = [];
-  users: Array<object> = [];
 
   constructor(
     private router: Router,
@@ -26,7 +24,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap  =>  {
-      this.comments = [];
       this.getTask();
     });
 
@@ -49,16 +46,10 @@ export class EditComponent implements OnInit {
         r.statusRgb,
         r.statusName,
         r.initiatorName,
+        r.executorId,
         r.executorName,
+        r.lifetimeItems,
       );
-    }, () => {
-      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
-    });
-  }
-
-  getUsers() {
-    this.apiService.getUsersList().subscribe(response => {
-      this.users = response;
     }, () => {
       this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
     });
@@ -73,12 +64,15 @@ export class EditComponent implements OnInit {
   }
 
   addComment() {
-    this.comments.push({
-      authorName: this.users[Math.floor(Math.random() * 3)]['name'],
-      createdAt: new Date(),
-      commentText: this.commentText,
+    this.apiService.updateTask({
+      id: this.task['id'],
+      statusId: this.task['statusId'],
+      executorId: this.task['executorId'],
+      comment: this.commentText,
+    }).subscribe(() => {
+      this.getTask();
+    }, () => {
+      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
     });
-
-    this.commentText = '';
   }
 }

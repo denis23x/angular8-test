@@ -38,13 +38,16 @@
           </app-button>
         </div>
       </form>
-      <div class="edit-comments" *ngIf="comments.length">
-        <div class="comment" *ngFor="let comment of comments">
+      <div class="edit-comments" *ngIf="task.lifetimeItems.length">
+        <div class="comment" *ngFor="let item of task.lifetimeItems">
           <div class="left"></div>
           <div class="right">
-            <div class="author">{{comment['authorName']}}</div>
-            <div class="created">{{comment['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал(а)</div>
-            <div class="text">{{comment['commentText']}}</div>
+            <div class="author">{{item['userName']}}</div>
+            <div class="created">{{item['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал</div>
+            <div class="text" *ngIf="item['comment']; else executorChanged">{{item['comment']}}</div>
+            <ng-template #executorChanged>
+              <div class="text">Изменился исполнитель: {{item['oldFieldValue']}} -> {{item['newFieldValue']}}</div>
+            </ng-template>
           </div>
         </div>
       </div>

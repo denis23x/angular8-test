@@ -11,5 +11,7 @@ export class Task {
     public statusRgb: string,
     public statusName: string,
     public initiatorName: string,
-    public executorName: string) { }
+    public executorId: string,
+    public executorName: string,
+    public lifetimeItems: string) { }
 }

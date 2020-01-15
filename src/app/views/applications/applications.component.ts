@@ -47,7 +47,9 @@ export class ApplicationsComponent implements OnInit {
             t.statusRgb,
             t.statusName,
             t.initiatorName,
+            t.executorId,
             t.executorName,
+            t.lifetimeItems,
           ));
         });
 
