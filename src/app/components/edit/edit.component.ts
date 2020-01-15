@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../classes/task';
-import { Router, ActivatedRoute, ActivationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
@@ -25,14 +25,9 @@ export class EditComponent implements OnInit {
     private emitterService: EmitterService) { }
 
   ngOnInit() {
-    this.getTask();
-    this.getUsers();
-
-    this.router.events.subscribe(event => {
-      if (event instanceof ActivationEnd) {
-        this.comments = [];
-        this.getTask();
-      }
+    this.route.paramMap.subscribe(paramMap  =>  {
+      this.comments = [];
+      this.getTask();
     });
 
     this.emitterService.updateTask.subscribe(() => {
@@ -71,6 +66,10 @@ export class EditComponent implements OnInit {
 
   changeExecutor() {
     this.emitterService.updateModal.next(new Modal(true, 'change-executor', this.task));
+  }
+
+  changePriority() {
+    this.emitterService.updateModal.next(new Modal(true, 'change-priority', this.task));
   }
 
   addComment() {

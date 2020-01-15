@@ -71,7 +71,10 @@
       </div>
       <div class="edit-row">
         <div class="heading">Приоритет</div>
-        <div class="description">{{task.priorityName}}</div>
+        <div class="description pointer" (click)="changePriority()">
+          <img src="../../../assets/icons-svg/edit-correct.svg">
+          {{task.priorityName}}
+        </div>
       </div>
       <div class="edit-row" *ngIf="task.resolutionDatePlan">
         <div class="heading">Срок</div>

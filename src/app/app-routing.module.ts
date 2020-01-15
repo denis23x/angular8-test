@@ -16,6 +16,9 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    data: {
+      title: 'Профессиональная веб-разработка и поддержка'
+    }
   },
   {
     path: 'knowledge-base',
@@ -36,10 +39,16 @@ const routes: Routes = [
       {
         path: 'create',
         component: CreateComponent,
+        data: {
+          title: 'Новая заявка'
+        }
       },
       {
         path: ':id',
         component: EditComponent,
+        data: {
+          title: 'Редактирование'
+        }
       }
     ]
   },

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,23 @@ import { Title } from '@angular/platform-browser';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private titleService: Title) { }
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      if (event instanceof ActivationEnd) {
-        const newTitle = event.snapshot.data['title'] || '';
-        this.titleService.setTitle(newTitle.length ? `IntraVision - ${newTitle}` : 'IntraVision');
-      }
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => {
+        let child = this.activatedRoute.firstChild;
+        while (child.firstChild) {
+          child = child.firstChild;
+        }
+
+        return child.snapshot.data['title'] ? child.snapshot.data['title'] : this.titleService.getTitle();
+      })
+    ).subscribe((title: string) => {
+      this.titleService.setTitle(`IntraVision - ${title}`);
     });
+
   }
 }
