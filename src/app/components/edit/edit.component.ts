@@ -5,6 +5,8 @@ import { ApiService } from '../../services/api.service';
 import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
 import { Modal } from '../../classes/modal';
+import { Users } from '../../classes/users';
+import { Statuses } from '../../classes/statuses';
 
 @Component({
   selector: 'app-edit',
@@ -20,7 +22,9 @@ export class EditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private emitterService: EmitterService) { }
+    private emitterService: EmitterService,
+    private users: Users,
+    private statuses: Statuses) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap  =>  {
@@ -55,12 +59,20 @@ export class EditComponent implements OnInit {
     });
   }
 
-  changeExecutor() {
-    this.emitterService.updateModal.next(new Modal(true, 'change-executor', this.task));
-  }
+  changeParams(param) {
+    const data = {
+      task: this.task,
+      paramName: param,
+      params: {},
+    };
 
-  changePriority() {
-    this.emitterService.updateModal.next(new Modal(true, 'change-priority', this.task));
+    if (param === 'executor') {
+      data.params = this.users.getUsers();
+    } else if (param === 'status') {
+      data.params = this.statuses.getStatuses();
+    }
+
+    this.emitterService.updateModal.next(new Modal(true, 'change-params', data));
   }
 
   addComment() {

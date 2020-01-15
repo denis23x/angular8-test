@@ -98,6 +98,11 @@
               padding: 4px 16px;
               border-radius: 10px;
               font-size: 12px;
+              display: inline-block;
+              max-width: 68px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
             }
           }
         }

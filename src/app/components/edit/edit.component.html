@@ -43,17 +43,23 @@
           <div class="left"></div>
           <div class="right">
             <div class="author">{{item['userName']}}</div>
-            <div class="created">{{item['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал</div>
-            <div class="text" *ngIf="item['comment']; else executorChanged">{{item['comment']}}</div>
-            <ng-template #executorChanged>
-              <div class="text">Изменился исполнитель: {{item['oldFieldValue']}} -> {{item['newFieldValue']}}</div>
-            </ng-template>
+            <div class="created">
+              {{item['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}}
+              {{item['comment'] ? 'прокомментировал' : ''}}
+            </div>
+            <div class="text" *ngIf="item['comment'] && !item['fieldName']">{{item['comment']}}</div>
+            <div class="text" *ngIf="!item['comment'] && item['fieldName'] === 'Исполнитель'">
+              <span>Обновился исполнитель:</span> {{item['newFieldValue']}}
+            </div>
+            <div class="text" *ngIf="!item['comment'] && item['fieldName'] === 'Статус'">
+              <span>Обновился статус:</span> {{item['newFieldValue']}}
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="right">
-      <div class="status">
+      <div class="status" (click)="changeParams('status')">
         <div class="round" [style.background-color]="task.statusRgb"></div>
         <div class="text">{{task.statusName}}</div>
       </div>
@@ -67,15 +73,14 @@
       </div>
       <div class="edit-row">
         <div class="heading">Исполнитель</div>
-        <div class="description pointer" (click)="changeExecutor()">
+        <div class="description pointer" (click)="changeParams('executor')">
           <img src="../../../assets/icons-svg/edit-correct.svg">
           {{task.executorName}}
         </div>
       </div>
       <div class="edit-row">
         <div class="heading">Приоритет</div>
-        <div class="description pointer" (click)="changePriority()">
-          <img src="../../../assets/icons-svg/edit-correct.svg">
+        <div class="description">
           {{task.priorityName}}
         </div>
       </div>

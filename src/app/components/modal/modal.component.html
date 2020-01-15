@@ -1,5 +1,10 @@
 <div class="modal-wrap" *ngIf="active">
   <div class="modal-inner">
-    <app-change-executor *ngIf="type === 'change-executor'" [task]="data"></app-change-executor>
+    <app-change-params
+      *ngIf="type === 'change-params'"
+      [task]="data['task']"
+      [paramName]="data['paramName']"
+      [params]="data['params']">
+    </app-change-params>
   </div>
 </div>

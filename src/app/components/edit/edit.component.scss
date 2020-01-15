@@ -125,6 +125,9 @@
               font-size: 14px;
               font-weight: 300;
               border: 1px solid #dce3e6;
+              span {
+                font-weight: 400;
+              }
             }
           }
         }
@@ -143,6 +146,7 @@
         justify-content: flex-start;
         align-items: center;
         margin: 30px 0;
+        cursor: pointer;
         .round {
           width: 14px;
           height: 14px;

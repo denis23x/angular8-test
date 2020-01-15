@@ -1,9 +1,9 @@
-.change-executor-wrap {
+.change-params-wrap {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 300px;
-  .change-executor-heading {
+  .change-params-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,9 +20,9 @@
       }
     }
   }
-  .change-executor-list {
+  .change-params-list {
     margin: 20px 0 0 0;
-    .executor {
+    .params {
       color: #9f9ea7;
       transition: all 0.2s;
       cursor: pointer;

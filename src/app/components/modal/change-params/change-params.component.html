@@ -1,0 +1,14 @@
+<div class="change-params-wrap">
+  <div class="change-params-heading">
+    <div>{{title}}</div>
+    <img src="../../../../assets/icons-svg/modal-close.svg" (click)="closeModal()">
+  </div>
+  <div class="change-params-list">
+    <div
+      class="params"
+      *ngFor="let param of params"
+      (click)="updateParam(param)"
+      [style.color]="param['rgb']">{{param.name}}
+    </div>
+  </div>
+</div>
