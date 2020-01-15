@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivationStart } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -7,11 +7,12 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private titleService: Title) {
+    private titleService: Title) { }
 
+  ngOnInit() {
     this.router.events.subscribe(event => {
       if (event instanceof ActivationStart) {
         const newTitle = event.snapshot.data['title'] || '';

@@ -1,10 +1,10 @@
-<div class="edit-wrap" *ngIf="active">
+<div class="edit-wrap" *ngIf="task">
   <div class="edit-heading">
     <div class="edit-name">
       <div>№ {{task.id | separateThousands}}</div>
       <div>{{task.name | reductionString}}</div>
     </div>
-    <img (click)="activeHandler(false)" src="../../../assets/icons-svg/create-close.svg">
+    <img (click)="router.navigate(['/applications'])" src="../../../assets/icons-svg/create-close.svg">
   </div>
   <div class="edit-content">
     <div class="left">
@@ -26,8 +26,18 @@
       <div class="edit-button">
         <app-button
           label="Сохранить"
-          (clicked)="editApplication()">
+          (clicked)="addComment()">
         </app-button>
+      </div>
+      <div class="edit-comments" *ngIf="comments.length">
+        <div class="comment" *ngFor="let comment of comments">
+          <div class="left"></div>
+          <div class="right">
+            <div class="author">{{comment.authorName}}</div>
+            <div class="created">{{comment.createdAt | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал(а)</div>
+            <div class="text">{{comment.commentText}}</div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="right">
@@ -41,7 +51,7 @@
       </div>
       <div class="edit-row">
         <div class="heading">Создана</div>
-        <div class="description">{{task.createdAt | date:'dd.MM.yyyy'}} г.</div>
+        <div class="description">{{task.createdAt | date:'dd.MM.yyyy' : '+6' : 'ru'}} г.</div>
       </div>
       <div class="edit-row">
         <div class="heading">Исполнитель</div>
@@ -55,13 +65,13 @@
         <div class="heading">Срок</div>
         <div class="description">
           <img src="../../../assets/icons-svg/edit-calendar.svg">
-          <div>{{task.resolutionDatePlan | date:'dd.mm.yyyy'}} г.</div>
+          <div>{{task.resolutionDatePlan | date:'dd.mm.yyyy' : '+6' : 'ru'}} г.</div>
         </div>
       </div>
       <div class="tags" *ngIf="task.tags.length">
         <div class="heading">Теги</div>
         <div class="tags-inner">
-          <div *ngFor="let tag of task.tags">{{tag.name}}</div>
+          <div *ngFor="let tag of task.tags">{{tag['name']}}</div>
         </div>
       </div>
     </div>

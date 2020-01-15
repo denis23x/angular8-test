@@ -4,9 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { registerLocaleData } from '@angular/common';
-import localeFr from '@angular/common/locales/fr';
+import localeRu from '@angular/common/locales/ru';
 
-registerLocaleData(localeFr, 'ru');
+registerLocaleData(localeRu, 'ru');
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

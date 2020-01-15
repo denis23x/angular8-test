@@ -1,14 +1,14 @@
-<div class="create-wrap" *ngIf="active">
+<div class="create-wrap">
   <div class="create-heading">
     <div>Новая заявка</div>
-    <img (click)="activeHandler(false)" src="../../../assets/icons-svg/create-close.svg">
+    <img (click)="router.navigate(['/applications'])" src="../../../assets/icons-svg/create-close.svg">
   </div>
   <div class="create-content">
     <div class="create-textarea">
       <label for="name">Название</label>
       <textarea
         name="name"
-        [(ngModel)]="application.name"
+        [(ngModel)]="newTask.name"
         minlength="4"
         #name="ngModel"
         required
@@ -25,7 +25,7 @@
       <label for="description">Описание</label>
       <textarea
         name="description"
-        [(ngModel)]="application.description"
+        [(ngModel)]="newTask.description"
         #description="ngModel"
         minlength="4"
         required
@@ -41,7 +41,7 @@
     <div class="create-button">
       <app-button
         label="Сохранить"
-        (clicked)="createApplication()"
+        (clicked)="createTask()"
         [disabled]="name.invalid || description.invalid">
       </app-button>
     </div>

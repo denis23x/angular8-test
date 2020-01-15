@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
 import { HomeComponent } from './views/home/home.component';
 import { KnowledgeBaseComponent } from './views/knowledge-base/knowledge-base.component';
 import { ApplicationsComponent } from './views/applications/applications.component';
@@ -7,6 +8,9 @@ import { StaffComponent } from './views/staff/staff.component';
 import { ClientsComponent } from './views/clients/clients.component';
 import { ActivesComponent } from './views/actives/actives.component';
 import { SettingsComponent } from './views/settings/settings.component';
+
+import { CreateComponent } from './components/create/create.component';
+import { EditComponent } from './components/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -27,7 +31,17 @@ const routes: Routes = [
     data: {
       icon: 'sidebar-applications.svg',
       title: 'Заявки'
-    }
+    },
+    children: [
+      {
+        path: 'create',
+        component: CreateComponent,
+      },
+      {
+        path: ':id',
+        component: EditComponent,
+      }
+    ]
   },
   {
     path: 'staff',

@@ -1,13 +1,11 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
 
-export class Application {
-  name: string;
-  description: string;
-  constructor(name: string, description: string) {
-    this.name = name;
-    this.description = description;
-  }
+export class NewTask {
+  constructor(public name: string, public description: string) { }
 }
 
 @Component({
@@ -16,25 +14,23 @@ export class Application {
   styleUrls: ['./create.component.scss']
 })
 export class CreateComponent implements OnInit {
-  @Output() submitCreate = new EventEmitter <Application>();
 
-  application: Application = new Application('Имя заявки тест', 'Описание заявки тест');
-  active: boolean;
+  newTask: NewTask = new NewTask('Имя заявки тест', 'Описание заявки тест');
 
   constructor(
+    private router: Router,
+    private apiService: ApiService,
     private emitterService: EmitterService) { }
 
   ngOnInit() {
-    this.emitterService.createTask.subscribe((toggle) => {
-      this.activeHandler(toggle);
-    });
   }
 
-  activeHandler(toggle) {
-    this.active = toggle;
-  }
-
-  createApplication() {
-    this.submitCreate.emit(new Application(this.application.name, this.application.description));
+  createTask() {
+    this.apiService.postNewTask(this.newTask).subscribe(() => {
+        this.emitterService.createSnack.next(new Snack('success', 'Заявка добавлена', 5000));
+        this.emitterService.updateTaskList.next();
+      }, () => {
+        this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+      });
   }
 }

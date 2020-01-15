@@ -6,6 +6,5 @@ import { Subject } from 'rxjs';
 })
 export class EmitterService {
   createSnack = new Subject();
-  createTask = new Subject();
-  editTask = new Subject();
+  updateTaskList = new Subject();
 }
