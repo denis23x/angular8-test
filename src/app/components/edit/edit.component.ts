@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, ActivationEnd } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
+import { Modal } from '../../classes/modal';
 
 @Component({
   selector: 'app-edit',
@@ -33,6 +34,10 @@ export class EditComponent implements OnInit {
         this.getTask();
       }
     });
+
+    this.emitterService.updateTask.subscribe(() => {
+      this.getTask();
+    });
   }
 
   getTask() {
@@ -45,6 +50,7 @@ export class EditComponent implements OnInit {
         r.resolutionDatePlan,
         r.priorityName,
         r.tags,
+        r.statusId,
         r.statusRgb,
         r.statusName,
         r.initiatorName,
@@ -61,6 +67,10 @@ export class EditComponent implements OnInit {
     }, () => {
       this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
     });
+  }
+
+  changeExecutor() {
+    this.emitterService.updateModal.next(new Modal(true, 'change-executor', this.task));
   }
 
   addComment() {

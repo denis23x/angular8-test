@@ -31,7 +31,15 @@ export class ApiService {
     return this.httpClient.get(`${host}/api/${token}/users/`);
   }
 
+  public getUsersGroupsList(): Observable<any> {
+    return this.httpClient.get(`${host}/api/${token}/usergroups/`);
+  }
+
   public postNewTask(data): Observable<any> {
     return this.httpClient.post(`${host}/api/${token}/tasks`, data);
+  }
+
+  public updateTask(data): Observable<any> {
+    return this.httpClient.put(`${host}/api/${token}/tasks`, data);
   }
 }

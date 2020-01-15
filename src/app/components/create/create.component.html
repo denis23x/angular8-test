@@ -4,7 +4,7 @@
     <img (click)="router.navigate(['/applications'])" src="../../../assets/icons-svg/create-close.svg">
   </div>
   <form #createForm="ngForm" class="create-content">
-    <div class="create-textarea">
+    <div class="default-textarea">
       <label for="name">Название</label>
       <textarea
         name="name"
@@ -21,7 +21,7 @@
         <span *ngIf="name.errors.minlength">Минимальное кол-во символов 4</span>
       </div>
     </div>
-    <div class="create-textarea">
+    <div class="default-textarea">
       <label for="description">Описание</label>
       <textarea
         name="description"

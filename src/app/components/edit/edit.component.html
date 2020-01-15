@@ -13,7 +13,7 @@
         <div class="text" [innerHtml]="task.description | sanitizeHtml"></div>
       </div>
       <form #commentForm="ngForm">
-        <div class="edit-textarea">
+        <div class="default-textarea">
           <label for="comment">Добавить комментарий</label>
           <textarea
             name="comment"
@@ -64,7 +64,7 @@
       </div>
       <div class="edit-row">
         <div class="heading">Исполнитель</div>
-        <div class="description">
+        <div class="description pointer" (click)="changeExecutor()">
           <img src="../../../assets/icons-svg/edit-correct.svg">
           {{task.executorName}}
         </div>

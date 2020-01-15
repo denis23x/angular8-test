@@ -43,6 +43,7 @@ export class ApplicationsComponent implements OnInit {
             t.resolutionDatePlan,
             t.priorityName,
             t.tags,
+            t.statusId,
             t.statusRgb,
             t.statusName,
             t.initiatorName,

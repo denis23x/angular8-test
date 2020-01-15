@@ -27,6 +27,8 @@ import { CreateComponent } from './components/create/create.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { EditComponent } from './components/edit/edit.component';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { ModalComponent } from './components/modal/modal.component';
+import { ChangeExecutorComponent } from './components/modal/change-executor/change-executor.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
     CreateComponent,
     SnackbarComponent,
     EditComponent,
-    SanitizeHtmlPipe
+    SanitizeHtmlPipe,
+    ModalComponent,
+    ChangeExecutorComponent
   ],
   imports: [
     BrowserModule,

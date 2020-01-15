@@ -7,6 +7,7 @@ export class Task {
     public resolutionDatePlan: string,
     public priorityName: string,
     public tags: Array<string>,
+    public statusId: string,
     public statusRgb: string,
     public statusName: string,
     public initiatorName: string,

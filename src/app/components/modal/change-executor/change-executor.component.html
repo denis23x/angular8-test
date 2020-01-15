@@ -1,0 +1,13 @@
+<div class="change-executor-wrap">
+  <div class="change-executor-heading">
+    <div>Изменить исполнителя</div>
+    <img src="../../../../assets/icons-svg/modal-close.svg" (click)="closeModal()">
+  </div>
+  <div class="change-executor-list">
+    <div
+      class="executor"
+      *ngFor="let user of users"
+      (click)="setExecutor(user)">{{user.name}}
+    </div>
+  </div>
+</div>
