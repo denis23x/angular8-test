@@ -1,0 +1,18 @@
+.default-button {
+  background: #008cf0;
+  padding: 10px 30px;
+  border-radius: 20px;
+  white-space: nowrap;
+  outline: none;
+  border: 0;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    background: #007ad8;
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
+}

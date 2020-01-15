@@ -1,0 +1,26 @@
+.snackbar-wrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+  z-index: 1;
+  .snackbar-content {
+    max-width: 340px;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background: rgb(50, 45, 48);
+    color: #fff;
+    &.error {
+      background: rgba(253, 94, 83, 0.9);
+    }
+    &.success {
+      background: rgba(60, 179, 113, 0.9);
+    }
+  }
+}

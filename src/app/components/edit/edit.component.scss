@@ -1,0 +1,180 @@
+.edit-wrap {
+  background: #ecf3f7;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 970px;
+  width: 100%;
+  height: 100%;
+  .edit-heading {
+    padding: 20px 30px;
+    background: #1a4876;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .edit-name {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      div:nth-child(1) {
+        font-size: 20px;
+        margin: 0 20px 0 0;
+      }
+      div:nth-child(2) {
+        max-width: 520px;
+      }
+    }
+    img {
+      display: block;
+      width: 16px;
+      cursor: pointer;
+    }
+  }
+  .edit-content {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #bebebe;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+      background: #9c9c9c;
+    }
+    .left {
+      width: calc(100% - 60px);
+      max-width: 680px;
+      padding: 0 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border-right: 1px solid #dae0e7;
+      .edit-description {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 30px 0;
+        width: 100%;
+        .label {
+          font-size: 14px;
+          color: #9f9ea7;
+          margin: 0 0 10px 0;
+        }
+        .text {
+          width: 100%;
+          font-size: 14px;
+          font-weight: 300;
+        }
+      }
+      .edit-textarea {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0 0 30px 0;
+        width: 100%;
+        label {
+          font-size: 14px;
+          color: #9f9ea7;
+          margin: 0 0 10px 0;
+        }
+        textarea {
+          width: calc(100% - 28px);
+          resize: vertical;
+          border: 1px solid #e8e8e8;
+          border-radius: 6px;
+          padding: 14px;
+          outline: none;
+        }
+        div.error {
+          display: flex;
+          flex-direction: column;
+          color: rgb(253, 94, 83);
+          margin: 10px;
+          font-size: 14px;
+        }
+      }
+      .edit-button {
+        margin: 0 0 30px 0;
+      }
+    }
+    .right {
+      width: calc(100% - 60px);
+      max-width: 240px;
+      padding: 0 30px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      .status {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 30px 0;
+        .round {
+          width: 14px;
+          height: 14px;
+          border-radius: 100%;
+          margin: 0 20px 0 0;
+        }
+        .text {
+          color: #2f2f33;
+        }
+      }
+      .edit-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 0 0 30px 0;
+        .heading {
+          font-size: 14px;
+          color: #9f9ea7;
+          margin: 0 0 4px 0;
+        }
+        .description {
+          color: #2f2f33;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          img {
+            display: block;
+            width: 20px;
+            opacity: 0.8;
+            margin: 4px 8px 4px 0;
+          }
+        }
+      }
+      .tags {
+        @extend .edit-row;
+        .heading {
+          margin: 0 0 10px 0;
+        }
+        .tags-inner {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          div {
+            color: #9f9ea7;
+            background: #fff;
+            padding: 4px 10px;
+            border: 1px solid #a1a2c2;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 0 4px 4px 0;
+          }
+        }
+      }
+    }
+  }
+}

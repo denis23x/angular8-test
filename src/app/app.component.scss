@@ -1,0 +1,13 @@
+.app-wrap {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  .app-sidebar {
+    height: 100%;
+  }
+  .app-content {
+    width: 100%;
+    height: 100%;
+  }
+}

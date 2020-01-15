@@ -1,0 +1,30 @@
+.search-wrap {
+  background: #d1e0ed;
+  padding: 14px 20px;
+  .search-input {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: #fff;
+    max-width: 650px;
+    border: 1px solid #3fa2f3;
+    border-radius: 20px;
+    padding: 8px 14px;
+    input {
+      border: 0;
+      background: none;
+      outline: none;
+      width: 100%;
+      font-size: 16px;
+      padding: 0 10px;
+      text-overflow: ellipsis;
+    }
+    img {
+      display: block;
+      max-width: 24px;
+      margin: 0 0 0 10px;
+      opacity: 0.5;
+      transform: scaleX(-1);
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div class="applications-wrap">
+  <div class="applications-search">
+    <app-search (doSearch)="doSearch($event)"></app-search>
+  </div>
+  <div class="applications-content">
+    <div class="applications-create">
+      <app-button label="Создать заявку" (clicked)="toggleCreate(true)"></app-button>
+    </div>
+    <div class="applications-list" *ngIf="(tasksList | search : taskSearchValue).length; else noData">
+      <div class="applications-heading">
+        <div class="id">ID</div>
+        <div class="name">Название</div>
+        <div class="status">Статус</div>
+        <div class="exec">Исполнитель</div>
+      </div>
+      <div class="applications-row-inner">
+        <div
+          class="applications-row"
+          *ngFor="let task of tasksList | search : taskSearchValue"
+          (click)="toggleEdit(true, task)">
+          <div class="id">{{task.id | separateThousands}}</div>
+          <div class="name">{{task.name | reductionString}}</div>
+          <div class="status">
+            <span [style.background-color]="task.statusRgb">{{task.statusName}}</span>
+          </div>
+          <div class="exec">{{task.executorName}}</div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noData>
+      <div class="applications-empty">Нет данных</div>
+    </ng-template>
+    <app-create (submitCreate)="submitCreate($event)"></app-create>
+    <app-edit (submitEdit)="submitEdit($event)"></app-edit>
+
+
+
+<!--    <div class="applications-create-wrap" *ngIf="showCreate">-->
+<!--      -->
+<!--    </div>-->
+<!--    <div class="applications-create-wrap" *ngIf="showEdit">-->
+<!--    </div>-->
+  </div>
+</div>

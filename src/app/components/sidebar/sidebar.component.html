@@ -1,0 +1,15 @@
+<div class="sidebar-wrap">
+  <a class="sidebar-logo" [routerLink]="''">
+    <img src="../../../assets/icons-svg/sidebar-angular.svg">
+    <span>Angular 8</span>
+  </a>
+  <a
+    class="sidebar-item"
+    *ngFor="let sidebarItem of sidebarList"
+    [title]="sidebarItem.title"
+    [routerLink]="sidebarItem.path"
+    routerLinkActive="active-link">
+    <img [src]="'../../../assets/icons-svg/' + sidebarItem.icon" alt="{{sidebarItem.title}}">
+    <span>{{sidebarItem.title}}</span>
+  </a>
+</div>

@@ -1,0 +1,69 @@
+<div class="edit-wrap" *ngIf="active">
+  <div class="edit-heading">
+    <div class="edit-name">
+      <div>№ {{task.id | separateThousands}}</div>
+      <div>{{task.name | reductionString}}</div>
+    </div>
+    <img (click)="activeHandler(false)" src="../../../assets/icons-svg/create-close.svg">
+  </div>
+  <div class="edit-content">
+    <div class="left">
+      <div class="edit-description">
+        <div class="label">Описание</div>
+        <div class="text" [innerHtml]="task.description | sanitizeHtml"></div>
+      </div>
+      <div class="edit-textarea">
+        <label for="name">Добавить комментарий</label>
+        <textarea
+          name="name"
+          minlength="4"
+          required
+          id="name"
+          cols="30"
+          rows="3">
+        </textarea>
+      </div>
+      <div class="edit-button">
+        <app-button
+          label="Сохранить"
+          (clicked)="editApplication()">
+        </app-button>
+      </div>
+    </div>
+    <div class="right">
+      <div class="status">
+        <div class="round" [style.background-color]="task.statusRgb"></div>
+        <div class="text">{{task.statusName}}</div>
+      </div>
+      <div class="edit-row">
+        <div class="heading">Заявитель</div>
+        <div class="description">{{task.initiatorName}}</div>
+      </div>
+      <div class="edit-row">
+        <div class="heading">Создана</div>
+        <div class="description">{{task.createdAt | date:'dd.MM.yyyy'}} г.</div>
+      </div>
+      <div class="edit-row">
+        <div class="heading">Исполнитель</div>
+        <div class="description">{{task.executorName}}</div>
+      </div>
+      <div class="edit-row">
+        <div class="heading">Приоритет</div>
+        <div class="description">{{task.priorityName}}</div>
+      </div>
+      <div class="edit-row" *ngIf="task.resolutionDatePlan">
+        <div class="heading">Срок</div>
+        <div class="description">
+          <img src="../../../assets/icons-svg/edit-calendar.svg">
+          <div>{{task.resolutionDatePlan | date:'dd.mm.yyyy'}} г.</div>
+        </div>
+      </div>
+      <div class="tags" *ngIf="task.tags.length">
+        <div class="heading">Теги</div>
+        <div class="tags-inner">
+          <div *ngFor="let tag of task.tags">{{tag.name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
