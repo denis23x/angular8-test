@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivationStart } from '@angular/router';
+import { Router, ActivationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
-      if (event instanceof ActivationStart) {
+      if (event instanceof ActivationEnd) {
         const newTitle = event.snapshot.data['title'] || '';
         this.titleService.setTitle(newTitle.length ? `IntraVision - ${newTitle}` : 'IntraVision');
       }

@@ -13,7 +13,9 @@ import { EmitterService } from '../../services/emitter.service';
 export class EditComponent implements OnInit {
 
   task: Task;
-  comments: Array<any> = [];
+  commentText: string;
+  comments: Array<object> = [];
+  users: Array<object> = [];
 
   constructor(
     private router: Router,
@@ -23,16 +25,18 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.getTask();
+    this.getUsers();
 
     this.router.events.subscribe(event => {
       if (event instanceof ActivationEnd) {
+        this.comments = [];
         this.getTask();
       }
     });
   }
 
   getTask() {
-    this.apiService.postTaskById(this.route.snapshot.paramMap.get('id')).subscribe(r => {
+    this.apiService.getTaskById(this.route.snapshot.paramMap.get('id')).subscribe(r => {
       this.task = new Task(
         r.id,
         r.name,
@@ -51,13 +55,21 @@ export class EditComponent implements OnInit {
     });
   }
 
+  getUsers() {
+    this.apiService.getUsersList().subscribe(response => {
+      this.users = response;
+    }, () => {
+      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+    });
+  }
+
   addComment() {
     this.comments.push({
-      authorName: 'Vasya',
+      authorName: this.users[Math.floor(Math.random() * 3)]['name'],
       createdAt: new Date(),
-      commentText: '<div class="created">{{comment.createdAt | date:\'dd.MM.yyyy\'}}</div> <div class="created">{{comment.createdAt | date:\'dd.MM.yyyy\'}}</div> <div class="created">{{comment.createdAt | date:\'dd.MM.yyyy\'}}</div> <div class="created">{{comment.createdAt | date:\'dd.MM.yyyy\'}}</div>'
+      commentText: this.commentText,
     });
 
-    console.log(this.comments);
+    this.commentText = '';
   }
 }

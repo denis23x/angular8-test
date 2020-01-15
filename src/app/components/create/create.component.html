@@ -3,7 +3,7 @@
     <div>Новая заявка</div>
     <img (click)="router.navigate(['/applications'])" src="../../../assets/icons-svg/create-close.svg">
   </div>
-  <div class="create-content">
+  <form #createForm="ngForm" class="create-content">
     <div class="create-textarea">
       <label for="name">Название</label>
       <textarea
@@ -41,9 +41,9 @@
     <div class="create-button">
       <app-button
         label="Сохранить"
-        (clicked)="createTask()"
+        (clicked)="createTask(); createForm.reset()"
         [disabled]="name.invalid || description.invalid">
       </app-button>
     </div>
-  </div>
+  </form>
 </div>

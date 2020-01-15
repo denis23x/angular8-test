@@ -23,8 +23,12 @@ export class ApiService {
     return this.httpClient.get(`${host}/odata/tasks`, options);
   }
 
-  public postTaskById(id): Observable<any> {
+  public getTaskById(id): Observable<any> {
     return this.httpClient.get(`${host}/api/${token}/tasks/${id}`);
+  }
+
+  public getUsersList(): Observable<any> {
+    return this.httpClient.get(`${host}/api/${token}/users/`);
   }
 
   public postNewTask(data): Observable<any> {

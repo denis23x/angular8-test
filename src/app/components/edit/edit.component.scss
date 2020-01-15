@@ -60,6 +60,9 @@
       flex-direction: column;
       align-items: flex-start;
       border-right: 1px solid #dae0e7;
+      form {
+        width: 100%;
+      }
       .edit-description {
         display: flex;
         flex-direction: column;

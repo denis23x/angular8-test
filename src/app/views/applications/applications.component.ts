@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ApplicationsComponent implements OnInit {
 
-  tasksList: Array<any> = [];
+  tasksList: Array<Task> = [];
   taskSearchValue: string;
 
   constructor(

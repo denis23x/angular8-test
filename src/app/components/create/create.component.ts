@@ -5,7 +5,7 @@ import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
 
 export class NewTask {
-  constructor(public name: string, public description: string) { }
+  constructor(public name?: string, public description?: string) { }
 }
 
 @Component({
@@ -15,7 +15,7 @@ export class NewTask {
 })
 export class CreateComponent implements OnInit {
 
-  newTask: NewTask = new NewTask('Имя заявки тест', 'Описание заявки тест');
+  newTask: NewTask = new NewTask('Заявка', 'Заявка');
 
   constructor(
     private router: Router,
@@ -26,7 +26,9 @@ export class CreateComponent implements OnInit {
   }
 
   createTask() {
-    this.apiService.postNewTask(this.newTask).subscribe(() => {
+    this.apiService.postNewTask(this.newTask).subscribe((id) => {
+        this.router.navigate(['/applications', id]);
+
         this.emitterService.createSnack.next(new Snack('success', 'Заявка добавлена', 5000));
         this.emitterService.updateTaskList.next();
       }, () => {

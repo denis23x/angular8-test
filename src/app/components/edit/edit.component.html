@@ -12,30 +12,39 @@
         <div class="label">Описание</div>
         <div class="text" [innerHtml]="task.description | sanitizeHtml"></div>
       </div>
-      <div class="edit-textarea">
-        <label for="name">Добавить комментарий</label>
-        <textarea
-          name="name"
-          minlength="4"
-          required
-          id="name"
-          cols="30"
-          rows="3">
+      <form #commentForm="ngForm">
+        <div class="edit-textarea">
+          <label for="comment">Добавить комментарий</label>
+          <textarea
+            name="comment"
+            [(ngModel)]="commentText"
+            #commentTextModel="ngModel"
+            minlength="4"
+            required
+            id="comment"
+            cols="30"
+            rows="3">
         </textarea>
-      </div>
-      <div class="edit-button">
-        <app-button
-          label="Сохранить"
-          (clicked)="addComment()">
-        </app-button>
-      </div>
+          <div *ngIf="commentTextModel.invalid && (commentTextModel.dirty || commentTextModel.touched)" class="error">
+            <span>Заполните поле добавить комментарий</span>
+            <span *ngIf="commentTextModel.errors.minlength">Минимальное кол-во символов 4</span>
+          </div>
+        </div>
+        <div class="edit-button">
+          <app-button
+            label="Сохранить"
+            (clicked)="addComment(); commentForm.reset()"
+            [disabled]="commentTextModel.invalid">
+          </app-button>
+        </div>
+      </form>
       <div class="edit-comments" *ngIf="comments.length">
         <div class="comment" *ngFor="let comment of comments">
           <div class="left"></div>
           <div class="right">
-            <div class="author">{{comment.authorName}}</div>
-            <div class="created">{{comment.createdAt | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал(а)</div>
-            <div class="text">{{comment.commentText}}</div>
+            <div class="author">{{comment['authorName']}}</div>
+            <div class="created">{{comment['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}} прокомментировал(а)</div>
+            <div class="text">{{comment['commentText']}}</div>
           </div>
         </div>
       </div>
@@ -55,7 +64,10 @@
       </div>
       <div class="edit-row">
         <div class="heading">Исполнитель</div>
-        <div class="description">{{task.executorName}}</div>
+        <div class="description">
+          <img src="../../../assets/icons-svg/edit-correct.svg">
+          {{task.executorName}}
+        </div>
       </div>
       <div class="edit-row">
         <div class="heading">Приоритет</div>
