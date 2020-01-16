@@ -19,8 +19,10 @@ html, body {
     font-size: 18px;
     color: darkgrey;
   }
-  a {
+  .links {
     display: flex;
+    flex-direction: column;
+    margin: 40px 0;
   }
 }
 

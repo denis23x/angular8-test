@@ -1,7 +1,7 @@
 <div class="modal-wrap" *ngIf="active">
   <div class="modal-inner">
     <app-change-params
-      *ngIf="type === 'change-params'"
+      *ngIf="component === 'change-params'"
       [task]="data['task']"
       [paramName]="data['paramName']"
       [params]="data['params']">

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { EmitterService } from '../../services/emitter.service';
 import { Snack } from '../../classes/snack';
-import { Task } from '../../classes/task';
 import { Router } from '@angular/router';
 import { Users } from '../../classes/users';
 import { Statuses } from '../../classes/statuses';
@@ -14,7 +13,7 @@ import { Statuses } from '../../classes/statuses';
 })
 export class ApplicationsComponent implements OnInit {
 
-  tasksList: Array<Task> = [];
+  tasksList: Array<object> = [];
   taskSearchValue: string;
 
   constructor(
@@ -22,7 +21,8 @@ export class ApplicationsComponent implements OnInit {
     private emitterService: EmitterService,
     private router: Router,
     private users: Users,
-    private statuses: Statuses) { }
+    private statuses: Statuses,
+    private snack: Snack) { }
 
   ngOnInit() {
     this.getTasks();
@@ -40,28 +40,10 @@ export class ApplicationsComponent implements OnInit {
 
   getTasks() {
     this.apiService.getTasksList().subscribe(response => {
-        response.value.forEach(t => {
-          this.tasksList.push(new Task(
-            t.id,
-            t.name,
-            t.description,
-            t.createdAt,
-            t.resolutionDatePlan,
-            t.priorityName,
-            t.tags,
-            t.statusId,
-            t.statusRgb,
-            t.statusName,
-            t.initiatorName,
-            t.executorId,
-            t.executorName,
-            t.lifetimeItems,
-          ));
-        });
-
+        this.tasksList = response.value;
         this.tasksList.reverse();
       }, () => {
-        this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+        this.emitterService.createSnack.next(this.snack.serverError);
       });
   }
 
@@ -69,7 +51,7 @@ export class ApplicationsComponent implements OnInit {
     this.apiService.getUsersList().subscribe(response => {
       this.users.addUsers(response);
       }, () => {
-        this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+        this.emitterService.createSnack.next(this.snack.serverError);
       });
   }
 
@@ -77,7 +59,7 @@ export class ApplicationsComponent implements OnInit {
     this.apiService.getStatusesList().subscribe(response => {
       this.statuses.addStatuses(response);
     }, () => {
-      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+      this.emitterService.createSnack.next(this.snack.serverError);
     });
   }
 }

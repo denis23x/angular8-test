@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Task } from '../../classes/task';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Snack } from '../../classes/snack';
 import { EmitterService } from '../../services/emitter.service';
-import { Modal } from '../../classes/modal';
 import { Users } from '../../classes/users';
 import { Statuses } from '../../classes/statuses';
 
@@ -15,7 +13,7 @@ import { Statuses } from '../../classes/statuses';
 })
 export class EditComponent implements OnInit, OnDestroy {
 
-  task: Task;
+  task: object;
   commentText: string;
 
   constructor(
@@ -24,10 +22,11 @@ export class EditComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private emitterService: EmitterService,
     private users: Users,
-    private statuses: Statuses) { }
+    private statuses: Statuses,
+    private snack: Snack) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(paramMap  =>  {
+    this.route.paramMap.subscribe(()  =>  {
       this.getTask();
     });
 
@@ -40,25 +39,10 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   getTask() {
-    this.apiService.getTaskById(this.route.snapshot.paramMap.get('id')).subscribe(r => {
-      this.task = new Task(
-        r.id,
-        r.name,
-        r.description,
-        r.createdAt,
-        r.resolutionDatePlan,
-        r.priorityName,
-        r.tags,
-        r.statusId,
-        r.statusRgb,
-        r.statusName,
-        r.initiatorName,
-        r.executorId,
-        r.executorName,
-        r.lifetimeItems,
-      );
+    this.apiService.getTaskById(this.route.snapshot.paramMap.get('id')).subscribe(response => {
+      this.task = response;
     }, () => {
-      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+      this.emitterService.createSnack.next(this.snack.serverError);
     });
   }
 
@@ -75,7 +59,11 @@ export class EditComponent implements OnInit, OnDestroy {
       data.params = this.statuses.getStatuses();
     }
 
-    this.emitterService.updateModal.next(new Modal(true, 'change-params', data));
+    this.emitterService.updateModal.next({
+      active: true,
+      component: 'change-params',
+      data,
+    });
   }
 
   addComment() {
@@ -86,8 +74,12 @@ export class EditComponent implements OnInit, OnDestroy {
       comment: this.commentText,
     }).subscribe(() => {
       this.getTask();
+
+      const snack = this.snack.taskSuccessUpdate;
+      snack.message = 'Комментарий добавлен';
+      this.emitterService.createSnack.next(snack);
     }, () => {
-      this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+      this.emitterService.createSnack.next(this.snack.serverError);
     });
   }
 }

@@ -9,17 +9,17 @@ import { EmitterService } from '../../services/emitter.service';
 export class ModalComponent implements OnInit {
 
   active: boolean;
-  type: string;
+  component: string;
   data: object;
 
   constructor(
     private emitterService: EmitterService) { }
 
   ngOnInit() {
-    this.emitterService.updateModal.subscribe(({ active, type, data }) => {
+    this.emitterService.updateModal.subscribe(({ active, component, data }) => {
       this.active = active;
-      this.type = type;
-      this.data = data;
+      this.component = this.active ? component : '';
+      this.data = this.active ? data : {};
     });
   }
 

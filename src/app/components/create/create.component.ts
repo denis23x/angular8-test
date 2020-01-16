@@ -20,7 +20,8 @@ export class CreateComponent implements OnInit {
   constructor(
     private router: Router,
     private apiService: ApiService,
-    private emitterService: EmitterService) { }
+    private emitterService: EmitterService,
+    private snack: Snack) { }
 
   ngOnInit() {
   }
@@ -28,11 +29,13 @@ export class CreateComponent implements OnInit {
   createTask() {
     this.apiService.postNewTask(this.newTask).subscribe((id) => {
         this.router.navigate(['/applications', id]);
-
-        this.emitterService.createSnack.next(new Snack('success', 'Заявка добавлена', 5000));
         this.emitterService.updateTaskList.next();
+
+        const snack = this.snack.taskSuccessUpdate;
+        snack.message = 'Заявка создана';
+        this.emitterService.createSnack.next(snack);
       }, () => {
-        this.emitterService.createSnack.next(new Snack('error', 'Произошла ошибка запроса, попробуйте позже..', 5000));
+        this.emitterService.createSnack.next(this.snack.serverError);
       });
   }
 }
