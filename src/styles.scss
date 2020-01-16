@@ -23,6 +23,10 @@ html, body {
     display: flex;
     flex-direction: column;
     margin: 40px 0;
+    a {
+      color: #3fa2f3;
+      text-decoration: none;
+    }
   }
 }
 

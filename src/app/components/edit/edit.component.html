@@ -38,8 +38,8 @@
           </app-button>
         </div>
       </form>
-      <div class="edit-comments" *ngIf="task.lifetimeItems.length">
-        <div class="comment" *ngFor="let item of task.lifetimeItems">
+      <div class="edit-comments" *ngIf="task['lifetimeItems'].length">
+        <div class="comment" *ngFor="let item of task['lifetimeItems']">
           <div class="left"></div>
           <div class="right">
             <div class="author">{{item['userName']}}</div>
@@ -47,54 +47,58 @@
               {{item['createdAt'] | date:'d MMMM, HH:mm' : '+6' : 'ru'}}
               {{item['comment'] ? 'прокомментировал' : ''}}
             </div>
-            <div class="text" *ngIf="item['comment'] && !item['fieldName']">{{item['comment']}}</div>
+            <div class="text" *ngIf="item['comment'] && !item['fieldName']" [innerHTML]="item['comment'] | sanitizeHtml"></div>
             <div class="text" *ngIf="!item['comment'] && item['fieldName'] === 'Исполнитель'">
               <span>Обновился исполнитель:</span> {{item['newFieldValue']}}
             </div>
             <div class="text" *ngIf="!item['comment'] && item['fieldName'] === 'Статус'">
               <span>Обновился статус:</span> {{item['newFieldValue']}}
             </div>
+            <div class="text" *ngIf="!item['comment'] && item['fieldName'] === 'Стоимость'">
+              <span>Обновилась стоимость:</span> {{item['newFieldValue']}}
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="right">
-      <div class="status" (click)="changeParams('status')">
-        <div class="round" [style.background-color]="task.statusRgb"></div>
-        <div class="text">{{task.statusName}}</div>
+      <div class="status">
+        <div class="status-inner">
+          <div class="round" [style.background-color]="task['statusRgb']"></div>
+          <div class="text">{{task['statusName']}}</div>
+        </div>
+        <span (click)="changeParams('status')">Изменить статус</span>
       </div>
       <div class="edit-row">
         <div class="heading">Заявитель</div>
-        <div class="description">{{task.initiatorName}}</div>
+        <div class="description">{{task['initiatorName']}}</div>
       </div>
       <div class="edit-row">
         <div class="heading">Создана</div>
-        <div class="description">{{task.createdAt | date:'dd.MM.yyyy' : '+6' : 'ru'}} г.</div>
+        <div class="description">{{task['createdAt'] | date:'dd.MM.yyyy' : '+6' : 'ru'}} г.</div>
       </div>
       <div class="edit-row">
         <div class="heading">Исполнитель</div>
-        <div class="description pointer" (click)="changeParams('executor')">
-          <img src="../../../assets/icons-svg/edit-correct.svg">
-          {{task.executorName}}
+        <div class="description col">
+          {{task['executorName']}}
+          <span (click)="changeParams('executor')">Изменить</span>
         </div>
       </div>
       <div class="edit-row">
         <div class="heading">Приоритет</div>
-        <div class="description">
-          {{task.priorityName}}
-        </div>
+        <div class="description">{{task['priorityName']}}</div>
       </div>
-      <div class="edit-row" *ngIf="task.resolutionDatePlan">
+      <div class="edit-row" *ngIf="task['resolutionDatePlan']">
         <div class="heading">Срок</div>
-        <div class="description">
+        <div class="description row">
           <img src="../../../assets/icons-svg/edit-calendar.svg">
-          <div>{{task.resolutionDatePlan | date:'dd.mm.yyyy' : '+6' : 'ru'}} г.</div>
+          <div>{{task['resolutionDatePlan'] | date:'dd.mm.yyyy' : '+6' : 'ru'}} г.</div>
         </div>
       </div>
-      <div class="tags" *ngIf="task.tags.length">
+      <div class="tags" *ngIf="task['tags'].length">
         <div class="heading">Теги</div>
         <div class="tags-inner">
-          <div class="tag" *ngFor="let tag of task.tags">{{tag['name']}}</div>
+          <div class="tag" *ngFor="let tag of task['tags']">{{tag['name']}}</div>
         </div>
       </div>
     </div>
