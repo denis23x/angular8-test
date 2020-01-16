@@ -1,8 +1,8 @@
 <div class="edit-wrap" *ngIf="task">
   <div class="edit-heading">
     <div class="edit-name">
-      <div>№ {{task.id | separateThousands}}</div>
-      <div>{{task.name | reductionString}}</div>
+      <div class="id">№ {{task.id | separateThousands}}</div>
+      <div class="name">{{task.name | reductionString}}</div>
     </div>
     <img (click)="router.navigate(['/applications'])" src="../../../assets/icons-svg/create-close.svg">
   </div>
@@ -10,7 +10,7 @@
     <div class="left">
       <div class="edit-description">
         <div class="label">Описание</div>
-        <div class="text" [innerHtml]="task.description | sanitizeHtml"></div>
+        <div class="description" [innerHtml]="task.description | sanitizeHtml"></div>
       </div>
       <form #commentForm="ngForm">
         <div class="default-textarea">
@@ -24,7 +24,7 @@
             id="comment"
             cols="30"
             rows="3">
-        </textarea>
+          </textarea>
           <div *ngIf="commentTextModel.invalid && (commentTextModel.dirty || commentTextModel.touched)" class="error">
             <span>Заполните поле добавить комментарий</span>
             <span *ngIf="commentTextModel.errors.minlength">Минимальное кол-во символов 4</span>
@@ -94,7 +94,7 @@
       <div class="tags" *ngIf="task.tags.length">
         <div class="heading">Теги</div>
         <div class="tags-inner">
-          <div *ngFor="let tag of task.tags">{{tag['name']}}</div>
+          <div class="tag" *ngFor="let tag of task.tags">{{tag['name']}}</div>
         </div>
       </div>
     </div>

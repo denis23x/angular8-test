@@ -31,10 +31,6 @@ export class ApiService {
     return this.httpClient.get(`${host}/api/${token}/users/`);
   }
 
-  public getPrioritiesList(): Observable<any> {
-    return this.httpClient.get(`${host}/api/${token}/priorities/`);
-  }
-
   public getStatusesList(): Observable<any> {
     return this.httpClient.get(`${host}/api/${token}/statuses/`);
   }

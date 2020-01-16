@@ -1,3 +1,5 @@
+@import "../../../styles";
+
 .edit-wrap {
   background: #ecf3f7;
   display: flex;
@@ -19,11 +21,11 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      div:nth-child(1) {
+      .id {
         font-size: 20px;
         margin: 0 20px 0 0;
       }
-      div:nth-child(2) {
+      .name {
         max-width: 520px;
       }
     }
@@ -39,18 +41,7 @@
     justify-content: space-between;
     align-items: flex-start;
     overflow: auto;
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-    &::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #bebebe;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      background: #9c9c9c;
-    }
+    @extend .custom-scrollbar;
     & > .left {
       width: calc(100% - 60px);
       max-width: 680px;
@@ -60,9 +51,6 @@
       flex-direction: column;
       align-items: flex-start;
       border-right: 1px solid #dae0e7;
-      form {
-        width: 100%;
-      }
       .edit-description {
         display: flex;
         flex-direction: column;
@@ -74,14 +62,17 @@
           color: #9f9ea7;
           margin: 0 0 10px 0;
         }
-        .text {
+        .description {
           width: 100%;
           font-size: 14px;
           font-weight: 300;
         }
       }
-      .edit-button {
-        margin: 0 0 30px 0;
+      form {
+        width: 100%;
+        .edit-button {
+          margin: 0 0 30px 0;
+        }
       }
       .edit-comments {
         width: 100%;
@@ -193,7 +184,7 @@
           justify-content: flex-start;
           align-items: flex-start;
           flex-wrap: wrap;
-          div {
+          .tag {
             color: #9f9ea7;
             background: #fff;
             padding: 4px 10px;

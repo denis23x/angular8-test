@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Snack } from '../../../classes/snack';
 import { ApiService } from '../../../services/api.service';
 import { EmitterService } from '../../../services/emitter.service';
@@ -9,7 +9,7 @@ import { Modal } from '../../../classes/modal';
   templateUrl: './change-params.component.html',
   styleUrls: ['./change-params.component.scss']
 })
-export class ChangeParamsComponent implements OnInit {
+export class ChangeParamsComponent implements OnInit, OnDestroy {
   @Input() task: object;
   @Input() paramName: string;
   @Input() params: Array<object>;
@@ -26,6 +26,9 @@ export class ChangeParamsComponent implements OnInit {
     } else if (this.paramName === 'status') {
       this.title = 'Изменить статус';
     }
+  }
+
+  ngOnDestroy() {
   }
 
   closeModal() {

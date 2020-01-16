@@ -34,7 +34,7 @@ export class ApplicationsComponent implements OnInit {
     });
   }
 
-  doSearch(str) {
+  getSearch(str) {
     this.taskSearchValue = str.trim();
   }
 

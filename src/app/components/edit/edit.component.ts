@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Task } from '../../classes/task';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
@@ -13,7 +13,7 @@ import { Statuses } from '../../classes/statuses';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
 
   task: Task;
   commentText: string;
@@ -34,6 +34,9 @@ export class EditComponent implements OnInit {
     this.emitterService.updateTask.subscribe(() => {
       this.getTask();
     });
+  }
+
+  ngOnDestroy() {
   }
 
   getTask() {

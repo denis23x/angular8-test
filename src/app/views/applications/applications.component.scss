@@ -1,3 +1,5 @@
+@import "../../../styles";
+
 .applications-wrap {
   display: flex;
   flex-direction: column;
@@ -29,24 +31,6 @@
           max-width: 100px;
           padding: 0 10px;
           text-align: center;
-        }
-        .name {
-          width: 100%;
-          max-width: 400px;
-          padding: 0 10px;
-        }
-        .status {
-          width: 100%;
-          max-width: 100px;
-          padding: 0 10px;
-        }
-        .exec {
-          width: calc(100% - 20px);
-          padding: 0 10px;
-        }
-        .id,
-        .name,
-        .status {
           position: relative;
           &::after {
             content: '';
@@ -58,23 +42,26 @@
             height: 100%;
           }
         }
+        .name {
+          max-width: 400px;
+          text-align: left;
+          @extend .id;
+        }
+        .status {
+          max-width: 100px;
+          @extend .id;
+          text-align: left;
+        }
+        .exec {
+          width: calc(100% - 20px);
+          padding: 0 10px;
+        }
       }
       .applications-row-inner {
         overflow: auto;
         height: calc(100vh - 177px);
         width: 100%;
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1;
-        }
-        &::-webkit-scrollbar-thumb {
-          background: #bebebe;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-          background: #9c9c9c;
-        }
+        @extend .custom-scrollbar;
         .applications-row {
           @extend .applications-heading;
           padding: 14px 0;
@@ -86,13 +73,15 @@
             background: #fafafb;
           }
           .id,
-          .name,
-          .status {
+          .name {
             &::after {
               display: none;
             }
           }
           .status {
+            &::after {
+              display: none;
+            }
             span {
               color: #fff;
               padding: 4px 16px;

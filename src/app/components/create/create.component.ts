@@ -15,7 +15,7 @@ export class NewTask {
 })
 export class CreateComponent implements OnInit {
 
-  newTask: NewTask = new NewTask('Заявка', 'Заявка');
+  newTask: NewTask = new NewTask();
 
   constructor(
     private router: Router,
